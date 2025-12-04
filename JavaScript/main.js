@@ -1,4 +1,53 @@
+let modal, modalImage;
+const DURATION = 300;
+
+function openModal(imageSrc, imageTitle) {
+    // Se verifica que los elementos ya estén inicializados antes de usarlos
+    if (modal && modalImage && modalContent) {
+        modalImage.src = imageSrc;
+        modalImage.alt = imageTitle;
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        requestAnimationFrame(() => {
+            modal.classList.add('opacity-100');
+            modalContent.classList.remove('modal-content-initial');
+            modalContent.classList.add('modal-content-active');
+        });
+    }
+}
+
+function closeModal() {
+    if (modal && modalContent) {
+        modal.classList.remove('opacity-100');
+        modalContent.classList.remove('modal-content-active');
+        modalContent.classList.add('modal-content-initial');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }, DURATION);
+    }
+}
 document.addEventListener('DOMContentLoaded', () => {
+    modal = document.getElementById('image-modal');
+    modalImage = document.getElementById('modal-image');
+    modalContent = document.querySelector('.modal-content'); // Nuevo elemento para la animación de escala/zoom
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    if (modalContent) {
+        modalContent.classList.add('modal-content-initial');
+    }
+    if (modal) {
+        modal.addEventListener('click', closeModal);
+    }
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+    if (modalContent) {
+        modalContent.addEventListener('click', (e) => e.stopPropagation());
+    }
     // -----------------------------------------------------
     // 1. Skills
     // -----------------------------------------------------
@@ -60,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100);
         });
 
-      
+
         skillPercents.forEach(span => {
             const targetLevel = parseInt(span.getAttribute('data-level'), 10);
             let currentLevel = 0;
-            const increment = targetLevel / 50; 
-            const interval = 30; 
+            const increment = targetLevel / 50;
+            const interval = 30;
 
             const timer = setInterval(() => {
                 currentLevel += increment;
@@ -93,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 }); 
+    }, { threshold: 0.1 });
 
     const fadeElements = document.querySelectorAll('.fade-in');
     fadeElements.forEach(el => observer.observe(el));
@@ -146,8 +195,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-  
-    injectSkills(); 
-    lucide.createIcons(); 
-    updateActiveLink(); 
+    const projectScreenshots = document.querySelectorAll('.project-screenshot');
+    projectScreenshots.forEach(screenshot => {
+        screenshot.addEventListener('click', () => {
+            const imageSrc = screenshot.getAttribute('data-image-src');
+            const imageTitle = screenshot.getAttribute('data-title');
+            openModal(imageSrc, imageTitle);
+        });
+    });
+
+    // Cierre del modal con tecla ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    injectSkills();
+    lucide.createIcons();
+    updateActiveLink();
 });
