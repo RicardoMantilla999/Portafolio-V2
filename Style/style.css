@@ -153,4 +153,7 @@
  .nav-link.active {
      color: var(--primary-color) !important;
  }
+.icon-orange {
+    filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(-30deg) saturate(500%) brightness(90%);
+}
 
