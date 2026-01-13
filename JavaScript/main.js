@@ -211,6 +211,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // -----------------------------------------------------
+    // 6. BOTÓN DE VOLVER ARRIBA (SCROLL TO TOP)
+    // -----------------------------------------------------
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) { // Mostrar después de 300px de scroll
+            scrollToTopBtn.classList.remove('hidden');
+        } else {
+            scrollToTopBtn.classList.add('hidden');
+        }
+    }, { passive: true });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+
     injectSkills();
     lucide.createIcons();
     updateActiveLink();

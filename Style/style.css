@@ -25,6 +25,7 @@
      transition: width 1.5s ease-out;
  }
 
+
  .project-card {
      background-color: #1f2937;
      /* Base oscura */
@@ -34,13 +35,15 @@
      border-radius: 0.75rem;
      /* rounded-xl */
      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-     transition: transform 0.3s, box-shadow 0.3s;
  }
 
- /* Animación para resaltar al pasar el mouse */
- .project-card:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.4);
+ .interactive-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+ }
+
+ .interactive-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.4);
  }
 
  /* Estilo para el contenedor de la imagen/captura de pantalla */
@@ -134,10 +137,7 @@
      transform: scale(1);
  }
 
- .card-hover:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.2), 0 10px 10px -5px rgba(245, 158, 11, 0.04);
- }
+
 
  .fade-in {
      opacity: 0;
@@ -155,5 +155,16 @@
  }
 .icon-orange {
     filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(-30deg) saturate(500%) brightness(90%);
+}
+
+.skill-card {
+    border: 2px solid transparent;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
 }
 
