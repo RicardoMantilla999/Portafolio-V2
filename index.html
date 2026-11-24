@@ -1,483 +1,287 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="Images/MantiSoft.png">
-    <title>Ricardo Mantilla | Ingeniero de Software</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="Style/style.css">
-    <script src="JavaScript/main.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricardo Mantilla | Ingeniero de Software</title>
+<meta name="description" content="Ingeniero de software y desarrollador web. Aplicaciones web a medida, landing pages y bases de datos optimizadas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#12151C; --muted:#5B6270; --line:#E2E5EB;
+  --accent:#2447F5; --accent-ink:#FFFFFF; --soft:#E9EDFF;
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'Instrument Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0E1117;--surface:#161A23;--ink:#F2F4F8;--muted:#9AA3B2;--line:#262B37;--accent:#6C86FF;--accent-ink:#0E1117;--soft:#1B2340}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding:6rem 0}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;margin-bottom:2.5rem;max-width:18ch}
+
+/* Header */
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.2rem}
+nav{display:flex;gap:2rem;align-items:center;font-size:.95rem;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px solid var(--ink);transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+nav .btn{padding:.55rem 1.15rem}
+nav .btn.primary{color:var(--accent-ink)}
+
+/* Hero */
+.hero{padding:5.5rem 0 6rem}
+.hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:4rem;align-items:center}
+.status{display:inline-flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:.4rem 1rem;border-radius:999px;margin-bottom:1.75rem}
+.status i{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,.2)}
+h1{font-size:clamp(2.6rem,6.2vw,4.9rem);font-weight:800;margin-bottom:1.5rem}
+.lead{font-size:1.2rem;color:var(--muted);max-width:52ch;margin-bottom:2.25rem}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem}
+.portrait{position:relative}
+.portrait::before{content:"";position:absolute;inset:8% -6% -6% 10%;background:var(--soft);border-radius:28px;z-index:0}
+.portrait img{position:relative;z-index:1;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:28px;border:1px solid var(--line)}
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.rise:nth-child(2){animation-delay:.08s}.rise:nth-child(3){animation-delay:.16s}.rise:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* Servicios */
+.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.service{padding:2rem 2rem 2rem 0}
+.service+.service{padding-left:2rem;border-left:1px solid var(--line)}
+.service h3{font-size:1.3rem;margin-bottom:.6rem}
+.service p{color:var(--muted);font-size:1rem}
+
+/* Proyectos */
+.project{display:grid;grid-template-columns:1.2fr 1fr;gap:3.5rem;align-items:center;padding:3rem 0;border-top:1px solid var(--line)}
+.project:nth-of-type(even) .shot{order:2}
+.shot{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 50px -28px rgba(18,21,28,.35);transition:transform .35s}
+.shot:hover{transform:translateY(-4px)}
+.shot .dots{display:flex;gap:6px;padding:.7rem 1rem;border-bottom:1px solid var(--line)}
+.shot .dots span{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.project h3{font-size:1.75rem;margin-bottom:.8rem}
+.project p{color:var(--muted);margin-bottom:1.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.tags span{font-size:.85rem;font-weight:500;background:var(--soft);color:var(--accent);padding:.25rem .8rem;border-radius:999px}
+.links{display:flex;flex-wrap:wrap;gap:1.25rem;font-weight:600;font-size:.95rem}
+.links a{border-bottom:2px solid var(--accent);padding-bottom:2px}
+.links a:hover{color:var(--accent)}
+
+/* Stack + experiencia */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem}
+.chips span{background:var(--surface);border:1px solid var(--line);padding:.5rem 1rem;border-radius:12px;font-weight:500;font-size:.95rem}
+.job{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:2rem}
+.job h3{font-size:1.3rem}
+.job .org{color:var(--muted);font-size:.95rem;margin:.3rem 0 1rem}
+.job ul{padding-left:1.2rem;color:var(--muted)}
+.job li{margin-bottom:.4rem}
+
+/* Contacto */
+.contact{background:var(--ink);color:var(--bg);border-radius:32px;padding:4.5rem 3rem;text-align:center;margin-bottom:4rem}
+.contact h2{margin-inline:auto;color:var(--bg)}
+.contact p{max-width:48ch;margin:-1rem auto 2.25rem;opacity:.75}
+.contact .actions{justify-content:center}
+.contact .btn.ghost{border-color:var(--bg);color:var(--bg)}
+.contact .btn.ghost:hover{background:var(--bg);color:var(--ink)}
+.contact .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.meta{margin-top:2.25rem;font-size:.95rem;opacity:.7;display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;justify-content:center}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer a:hover{color:var(--ink)}
+
+@media (max-width:860px){
+  section{padding:4rem 0}
+  nav a:not(.btn){display:none}
+  .hero-grid,.project,.two{grid-template-columns:1fr;gap:2.25rem}
+  .portrait{max-width:340px}
+  .project:nth-of-type(even) .shot{order:0}
+  .services{grid-template-columns:1fr}
+  .service,.service+.service{padding:1.5rem 0;border-left:0;border-bottom:1px solid var(--line)}
+  .contact{padding:3rem 1.5rem;border-radius:24px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
+<body>
 
-<body class="bg-gray-800 text-gray-100">
-
-    <!-- BARRA DE NAVEGACIÓN -->
-    <nav id="navbar" class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-extrabold tracking-wider text-amber-500">MantiSoft</span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#inicio"
-                            class="nav-link text-gray-300 hover:text-amber-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Inicio</a>
-                        <a href="#habilidades"
-                            class="nav-link text-gray-300 hover:text-amber-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Habilidades</a>
-                        <a href="#experiencia"
-                            class="nav-link text-gray-300 hover:text-amber-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Experiencia</a>
-                        <a href="#proyectos"
-                            class="nav-link text-gray-300 hover:text-amber-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Proyectos</a>
-                        <a href="#contacto"
-                            class="nav-link text-gray-300 hover:text-amber-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Contacto</a>
-                    </div>
-                </div>
-                <!-- Botón de menú para móvil -->
-                <div class="-mr-2 flex md:hidden">
-                    <button id="mobile-menu-button" type="button"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-amber-500"
-                        aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Abrir menú principal</span>
-                        <i data-lucide="menu" class="h-6 w-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Menú móvil -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#inicio"
-                    class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-amber-500">Inicio</a>
-                <a href="#habilidades"
-                    class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-amber-500">Habilidades</a>
-                <a href="#experiencia"
-                    class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-amber-500">Experiencia</a>
-                <a href="#proyectos"
-                    class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-amber-500">Proyectos</a>
-                <a href="#contacto"
-                    class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-amber-500">Contacto</a>
-            </div>
-        </div>
+<header>
+  <div class="wrap bar">
+    <a href="#inicio" class="logo">MantiSoft</a>
+    <nav aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#contacto" class="btn primary">Contactar</a>
     </nav>
+  </div>
+</header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        <!-- 1. SECCIÓN INICIO -->
-        <section id="inicio" class="pt-24 pb-16 min-h-screen flex items-center fade-in">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <span class="text-amber-500 text-lg font-semibold block mb-2">¡Hola! Mi nombre es Ricardo
-                        Mantilla</span>
-                    <h1 class="text-6xl font-extrabold tracking-tight mb-4 text-gray-50">
-                        Ingeniero de Software
-                    </h1>
-                    <h2 class="text-4xl font-bold mb-6 text-gray-300">
-                        Desarrollador web
-                    </h2>
-                    <p class="text-gray-400 text-lg mb-8 max-w-lg">
-                        Apasionado por construir soluciones robustas y escalables. Experiencia en desarrollo de
-                        interfaces de usuario y optimización de bases de datos. Comprometido con metodologías ágiles
-                        (SCRUM, Kanban).
-                    </p>
-                    <a href="Images/CV MantillaR 2026.pdf" target="_blank" rel="noopener noreferrer"
-                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-gray-900 bg-amber-500 hover:bg-amber-600 transition duration-300 transform hover:scale-105">
-                        Descargar CV
-                        <i data-lucide="download" class="ml-2 h-5 w-5"></i>
-                    </a>
-                </div>
-                <div class="flex justify-center md:justify-end">
-                    <img id="profile-picture" src="Images/Foto perfil.png" alt="Foto de Ricardo Mantilla"
-                        class="rounded-full w-72 h-72 object-cover border-4 border-amber-500 shadow-2xl transition duration-500 transform hover:rotate-3">
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. SECCIÓN HABILIDADES (SKILLS) -->
-        <section id="habilidades" class="py-16 fade-in ">
-            <h3 class="text-4xl font-extrabold text-center mb-12 text-amber-500">Tecnologías y Habilidades</h3>
-
-            <div class="container mx-auto px-4">
-
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-html5 text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">HTML5</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-css3 text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">CSS3</span>
-                    </div>
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-js text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">JavaScript</span>
-                    </div>
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-java text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">Java</span>
-                    </div>
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <img src="Images/icons/Spring_Boot.svg.webp" alt="Logo de Spring boot" class="w-6 h-6 mr-2">
-                        <span class="text-xl font-semibold text-gray-50">Spring boot</span>
-                    </div>
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <img src="Images/icons/NestJS.svg" alt="Logo de NestJs" class="w-6 h-6 mr-2 ">
-                        <span class="text-xl font-semibold text-gray-50">NestJs</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <img src="Images/icons/TypeScript.png" alt="Logo de TypeScript" class="w-6 h-6 mr-2">
-                        <span class="text-xl font-semibold text-gray-50">TypeScript</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-react text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">React</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-angular text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">Angular</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <img src="Images/icons/postgre.png" alt="Logo de Postgres" class="w-6 h-6 mr-2">
-                        <span class="text-xl font-semibold text-gray-50">PostgreSQL</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <img src="Images/icons/mysql.png" alt="Logo de MySql" class="w-6 h-6 mr-2">
-                        <span class="text-xl font-semibold text-gray-50">MySQL</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-git-alt text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">Git</span>
-                    </div>
-
-                    <div
-                        class="skill-card flex items-center justify-center p-4 bg-gray-900 rounded-xl shadow-lg transition duration-300 transform">
-                        <i class="fab fa-docker text-2xl mr-2 text-amber-500"></i>
-                        <span class="text-xl font-semibold text-gray-50">Docker</span>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-        <!-- 3. SECCIÓN EXPERIENCIA LABORAL -->
-        <section id="experiencia" class="py-16 fade-in">
-            <h3 class="text-4xl font-extrabold text-center mb-12 text-gray-50">Experiencia Profesional</h3>
-
-            <!-- Tarjeta de Experiencia (CACMU) -->
-            <div
-                class="bg-gray-700 p-8 rounded-xl shadow-xl max-w-3xl mx-auto border-l-4 border-amber-500 interactive-card">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h4 class="text-3xl font-bold mb-1 text-amber-500">Desarrollador</h4>
-                        <p class="text-xl font-semibold text-gray-200">COOPERATIVA DE AHORRO Y CRÉDITO MUJERES UNIDAS
-                            (CACMU)</p>
-                    </div>
-                    <span class="text-sm font-medium text-gray-400 bg-gray-600 px-3 py-1 rounded-full">Noviembre 2023 -
-                        2024</span>
-                </div>
-                <ul class="list-disc list-inside text-gray-300 mt-4 space-y-2">
-                    <li class="flex items-start">
-                        <i data-lucide="check-circle" class="h-5 w-5 mr-2 text-green-400 flex-shrink-0"></i>
-                        Automatización de procesos para solicitud de permisos.
-                    </li>
-                    <li class="flex items-start">
-                        <i data-lucide="check-circle" class="h-5 w-5 mr-2 text-green-400 flex-shrink-0"></i>
-                        Desarrollo e implementación de interfaces de usuario modernas y funcionales.
-                    </li>
-                    <li class="flex items-start">
-                        <i data-lucide="check-circle" class="h-5 w-5 mr-2 text-green-400 flex-shrink-0"></i>
-                        Optimización de consultas en bases de datos para mejorar el rendimiento de la aplicación.
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- 4. SECCIÓN PROYECTOS -->
-        <section id="proyectos" class="py-16 fade-in">
-            <h3 class="text-4xl font-extrabold text-center mb-12 text-gray-50">Proyectos Destacados</h3>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Proyecto 1: FutGol -->
-                <div class="project-card shadow-xl interactive-card">
-                    <div class="project-screenshot" data-image-src="Images/proyectos/login - FutGol.png"
-                        data-title="Captura de Pantalla - FutGol">
-                        <img src="Images/proyectos/login - FutGol.png" alt="Captura de FutGol">
-                    </div>
-
-                    <!-- Contenido del Proyecto -->
-                    <div class="p-6 flex-grow">
-                        <h4 class="text-2xl font-bold mb-2 flex items-center">
-                            <i data-lucide="monitor-smartphone" class="h-6 w-6 text-amber-500 mr-2"></i> Gestión de
-                            Campeonatos de Fútbol
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Aplicación web (FutGol) para la gestión de campeonatos de fútbol en la Liga Deportiva
-                            Cantonal de Pedro Moncayo.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">Angular</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">NestJs</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">PostgreSQL</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-end border-t border-gray-600 p-4 space-x-4">
-                        <a href="https://ldcpedromoncayo.vercel.app/#/login" target="_blank" title="Ver Aplicación Web"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="globe" class="h-6 w-6"></i>
-                        </a>
-                        <a href="https://github.com/RicardoMantilla999/APP-LDCPM-frontend.git" target="_blank"
-                            title="Ver Repositorio Frontend en GitHub"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="github" class="h-6 w-6"></i>
-                        </a>
-                        <a href="https://github.com/RicardoMantilla999/APP-LDCPM-backend.git" target="_blank"
-                            title="Ver Repositorio Backend en GitHub"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="github" class="h-6 w-6"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Proyecto 2: Landing Page Vivians Floristeria -->
-                <div class="project-card shadow-xl interactive-card">
-                    <div class="project-screenshot" data-image-src="Images/proyectos/Vivians Floristeria.jpeg"
-                        data-title="Captura de Pantalla - Vivians Floristeria">
-                        <img src="Images/proyectos/Vivians Floristeria.jpeg" alt="Captura de Floristeria">
-                    </div>
-
-                    <!-- Contenido del Proyecto -->
-                    <div class="p-6 flex-grow">
-                        <h4 class="text-2xl font-bold mb-2 flex items-center">
-                            <i data-lucide="monitor-smartphone" class="h-6 w-6 text-amber-500 mr-2"></i> Sitio Web
-                            para Vivian's Floristería
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Página web con animaciones personalizadas y diseño adaptativo para una Floristería y decoradora de eventos.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-end border-t border-gray-600 p-4 space-x-4">
-                        <a href="https://viviansfloristeria.vercel.app/" target="_blank"
-                            title="Ver Aplicación Web" class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="globe" class="h-6 w-6"></i>
-                        </a>
-                        <a href="https://github.com/RicardoMantilla999/Vivians-Floristeria.git" target="_blank"
-                            title="Ver Repositorio en GitHub"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="github" class="h-6 w-6"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Proyecto 2: Landing Page Mecanica Trujillo -->
-                <div class="project-card shadow-xl interactive-card">
-                    <div class="project-screenshot" data-image-src="Images/proyectos/Mecanica Trujillo.jpeg"
-                        data-title="Captura de Pantalla - FutGol">
-                        <img src="Images/proyectos/Mecanica Trujillo.jpeg" alt="Captura de FutGol">
-                    </div>
-
-                    <!-- Contenido del Proyecto -->
-                    <div class="p-6 flex-grow">
-                        <h4 class="text-2xl font-bold mb-2 flex items-center">
-                            <i data-lucide="monitor-smartphone" class="h-6 w-6 text-amber-500 mr-2"></i> Landing Page
-                            para Taller Automotriz
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Web estática con animaciones personalizadas y diseño adaptativo para un Taller Automotriz
-                            Mecánica Trujillo.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-end border-t border-gray-600 p-4 space-x-4">
-                        <a href="https://ricardomantilla999.github.io/MecanicaTrujillo/" target="_blank"
-                            title="Ver Aplicación Web" class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="globe" class="h-6 w-6"></i>
-                        </a>
-                        <a href="https://github.com/RicardoMantilla999/MecanicaTrujillo.git" target="_blank"
-                            title="Ver Repositorio en GitHub"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="github" class="h-6 w-6"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Proyecto 3: Landing Page Evento Taurino-->
-                <div class="project-card shadow-xl interactive-card">
-                    <div class="project-screenshot" data-image-src="Images/proyectos/ElTorreroEcuador.png"
-                        data-title="Captura de Pantalla - FutGol">
-                        <img src="Images/proyectos/ElTorreroEcuador.png" alt="Captura de FutGol">
-                    </div>
-
-                    <!-- Contenido del Proyecto -->
-                    <div class="p-6 flex-grow">
-                        <h4 class="text-2xl font-bold mb-2 flex items-center">
-                            <i data-lucide="monitor-smartphone" class="h-6 w-6 text-amber-500 mr-2"></i> Landing Page
-                            para Evento Taurino
-                        </h4>
-                        <p class="text-gray-300 mb-4">
-                            Web interactiva y diseño responsive, con conteo regresivo al día del evento.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-                            <span
-                                class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-end border-t border-gray-600 p-4 space-x-4">
-                        <a href="https://ricardomantilla999.github.io/ElToreroEcuador-FestivalTaurino/" target="_blank"
-                            title="Ver Aplicación Web" class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="globe" class="h-6 w-6"></i>
-                        </a>
-                        <a href="https://github.com/RicardoMantilla999/ElToreroEcuador-FestivalTaurino.git"
-                            target="_blank" title="Ver Repositorio en GitHub"
-                            class="text-gray-400 hover:text-amber-500 transition-colors">
-                            <i data-lucide="github" class="h-6 w-6"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Proyecto 3: Landing Page Evento Taurino
-                <div class="bg-gray-700 p-6 rounded-xl shadow-xl card-hover transition duration-300">
-
-                    <i data-lucide="monitor-smartphone" class="h-8 w-8 text-amber-500 mb-3"></i>
-                    <h4 class="text-2xl font-bold mb-2">Landing Page para Evento Taurino</h4>
-                    <p class="text-gray-400 mb-4">
-                        Web interactiva y diseño responsive, con conteo regresivo al día del evento.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML /
-                            CSS / JS</span>
-                    </div>
-                    <a href="https://ricardomantilla999.github.io/ElToreroEcuador-FestivalTaurino/" target="_blank"
-                        class="text-amber-500 hover:text-amber-400 font-semibold flex items-center">
-                        Ver Página
-                        <i data-lucide="external-link" class="ml-2 h-4 w-4"></i>
-                    </a>
-                </div>
-                -->
-            </div>
-        </section>
-
-        <!-- 5. SECCIÓN CONTACTO -->
-        <section id="contacto" class="py-16 fade-in">
-            <div class="text-center mb-12">
-                <h3 class="text-4xl font-extrabold mb-4 text-gray-50">Hablemos de tu próximo proyecto</h3>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                    Estoy disponible para nuevas oportunidades y siempre dispuesto a colaborar. ¡Contáctame a través de
-                    mis redes o correo!
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <!-- Tarjeta de Email -->
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl flex flex-col items-center interactive-card">
-                    <i data-lucide="mail" class="h-8 w-8 text-amber-500 mb-3"></i>
-                    <h4 class="text-xl font-bold mb-1">Email</h4>
-                    <a href="mailto:ricardo_mantilla999@hotmail.com"
-                        class="text-gray-300 hover:text-amber-500 transition-colors">
-                        ricardo_mantilla999@hotmail.com
-                    </a>
-                </div>
-                <!-- Tarjeta de Teléfono -->
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl flex flex-col items-center interactive-card">
-                    <i data-lucide="phone" class="h-8 w-8 text-amber-500 mb-3"></i>
-                    <h4 class="text-xl font-bold mb-1">Teléfono</h4>
-                    <a href="tel:0959019704" class="text-gray-300 hover:text-amber-500 transition-colors">
-                        +593 959 019 704
-                    </a>
-                </div>
-                <!-- Tarjeta de Ubicación -->
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl flex flex-col items-center interactive-card">
-                    <i data-lucide="map-pin" class="h-8 w-8 text-amber-500 mb-3"></i>
-                    <h4 class="text-xl font-bold mb-1">Ubicación</h4>
-                    <p class="text-gray-300">Tabacundo, Pedro Moncayo, Ecuador</p>
-                </div>
-            </div>
-
-            <!-- Redes Sociales -->
-            <div class="flex justify-center space-x-6 mt-12">
-                <a href="https://www.linkedin.com/in/ricardomantillasoft" target="_blank"
-                    class="text-gray-300 hover:text-amber-500 transition duration-300 transform hover:scale-110">
-                    <i data-lucide="linkedin" class="h-8 w-8"></i>
-                </a>
-                <a href="https://github.com/RicardoMantilla999" target="_blank"
-                    class="text-gray-300 hover:text-amber-500 transition duration-300 transform hover:scale-110">
-                    <i data-lucide="github" class="h-8 w-8"></i>
-                </a>
-                
-            </div>
-
-
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-900/90 border-t border-gray-700">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-gray-400 text-sm">
-            &copy; 2026 MantiSoft | Ing. Ricardo Mantilla
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="status rise"><i></i> Disponible para nuevos proyectos</p>
+        <h1 class="rise">Soy Ricardo Mantilla, ingeniero de software.</h1>
+        <p class="lead rise">Desarrollo aplicaciones y sitios web robustos, rápidos y fáciles de usar, desde la interfaz hasta la base de datos. Trabajo con metodologías ágiles (SCRUM y Kanban).</p>
+        <div class="actions rise">
+          <a class="btn primary" href="#contacto">Hablemos de tu proyecto</a>
+          <a class="btn ghost" href="Images/CV%20MantillaR%202026.pdf" target="_blank" rel="noopener">Descargar CV</a>
         </div>
-    </footer>
-
-    <div id="image-modal" class="modal-overlay hidden opacity-0 transition-opacity duration-300">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <img id="modal-image" src="" alt="Imagen Ampliada del Proyecto">
-        </div>
-        <!-- Botón de cierre (opcional, el clic en el overlay también cierra) -->
-        <button id="close-modal-btn"
-            class="absolute top-4 right-4 text-white text-3xl font-bold p-2 rounded-full bg-gray-900/50 hover:bg-gray-900 transition-colors focus:outline-none">
-            <i data-lucide="x" class="h-8 w-8"></i>
-        </button>
+      </div>
+      <div class="portrait rise">
+        <img src="Images/Foto%20perfil.png" alt="Foto de Ricardo Mantilla" width="480" height="600">
+      </div>
     </div>
+  </section>
 
-    <!-- Botón de Volver Arriba -->
-    <button id="scroll-to-top"
-        class="hidden fixed bottom-8 right-8 bg-amber-500 hover:bg-amber-600 text-gray-900 p-3 rounded-full shadow-lg transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 z-50">
-        <i data-lucide="arrow-up" class="h-6 w-6"></i>
-    </button>
+  <section id="servicios">
+    <div class="wrap">
+      <h2>Lo que puedo hacer por tu negocio</h2>
+      <div class="services">
+        <div class="service">
+          <h3>Aplicaciones web a medida</h3>
+          <p>Sistemas de gestión con Angular, React, NestJS y Spring Boot, adaptados a cómo trabaja tu organización.</p>
+        </div>
+        <div class="service">
+          <h3>Sitios y landing pages</h3>
+          <p>Páginas rápidas, con animaciones y diseño adaptable a celular, para que tus clientes te encuentren y te escriban.</p>
+        </div>
+        <div class="service">
+          <h3>Bases de datos y automatización</h3>
+          <p>Consultas optimizadas en PostgreSQL y MySQL, y procesos automatizados que ahorran tiempo a tu equipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <h2>Proyectos destacados</h2>
+
+      <article class="project">
+        <div class="shot"><div class="dots"><span></span><span></span><span></span></div>
+          <img src="Images/proyectos/login%20-%20FutGol.png" alt="Captura de FutGol" loading="lazy"></div>
+        <div>
+          <h3>FutGol: gestión de campeonatos</h3>
+          <p>Aplicación web para administrar los campeonatos de fútbol de la Liga Deportiva Cantonal de Pedro Moncayo.</p>
+          <div class="tags"><span>Angular</span><span>NestJS</span><span>PostgreSQL</span></div>
+          <div class="links">
+            <a href="https://ldcpedromoncayo.vercel.app/#/login" target="_blank" rel="noopener">Ver aplicación</a>
+            <a href="https://github.com/RicardoMantilla999/APP-LDCPM-frontend.git" target="_blank" rel="noopener">Frontend</a>
+            <a href="https://github.com/RicardoMantilla999/APP-LDCPM-backend.git" target="_blank" rel="noopener">Backend</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="shot"><div class="dots"><span></span><span></span><span></span></div>
+          <img src="Images/proyectos/Vivians%20Floristeria.jpeg" alt="Captura de Vivian's Floristería" loading="lazy"></div>
+        <div>
+          <h3>Vivian's Floristería</h3>
+          <p>Sitio con animaciones personalizadas y diseño adaptable para una floristería y decoradora de eventos.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="links">
+            <a href="https://viviansfloristeria.vercel.app/" target="_blank" rel="noopener">Ver sitio</a>
+            <a href="https://github.com/RicardoMantilla999/Vivians-Floristeria.git" target="_blank" rel="noopener">Repositorio</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="shot"><div class="dots"><span></span><span></span><span></span></div>
+          <img src="Images/proyectos/Mecanica%20Trujillo.jpeg" alt="Captura de Mecánica Trujillo" loading="lazy"></div>
+        <div>
+          <h3>Mecánica Trujillo</h3>
+          <p>Landing page con animaciones y diseño adaptable para un taller automotriz.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="links">
+            <a href="https://ricardomantilla999.github.io/MecanicaTrujillo/" target="_blank" rel="noopener">Ver sitio</a>
+            <a href="https://github.com/RicardoMantilla999/MecanicaTrujillo.git" target="_blank" rel="noopener">Repositorio</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="shot"><div class="dots"><span></span><span></span><span></span></div>
+          <img src="Images/proyectos/ElTorreroEcuador.png" alt="Captura de El Torero Ecuador" loading="lazy"></div>
+        <div>
+          <h3>El Torero Ecuador: festival taurino</h3>
+          <p>Web interactiva y responsive para un evento, con conteo regresivo hasta el día del festival.</p>
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="links">
+            <a href="https://ricardomantilla999.github.io/ElToreroEcuador-FestivalTaurino/" target="_blank" rel="noopener">Ver sitio</a>
+            <a href="https://github.com/RicardoMantilla999/ElToreroEcuador-FestivalTaurino.git" target="_blank" rel="noopener">Repositorio</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap two">
+      <div>
+        <h2>Tecnologías</h2>
+        <div class="chips">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>TypeScript</span><span>Java</span>
+          <span>Spring Boot</span><span>NestJS</span><span>React</span><span>Angular</span>
+          <span>PostgreSQL</span><span>MySQL</span><span>Git</span><span>Docker</span>
+        </div>
+      </div>
+      <div>
+        <h2>Experiencia</h2>
+        <div class="job">
+          <h3>Desarrollador</h3>
+          <p class="org">Cooperativa de Ahorro y Crédito Mujeres Unidas (CACMU) · Nov. 2023 – 2024</p>
+          <ul>
+            <li>Automaticé el proceso de solicitud de permisos.</li>
+            <li>Desarrollé interfaces de usuario modernas y funcionales.</li>
+            <li>Optimicé consultas de base de datos para mejorar el rendimiento.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" style="padding-top:2rem">
+    <div class="wrap">
+      <div class="contact">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <p>Cuéntame qué necesitas y te respondo con una propuesta clara.</p>
+        <div class="actions">
+          <a class="btn primary" href="mailto:ricardo_mantilla999@hotmail.com">Escribir por correo</a>
+          <a class="btn ghost" href="https://wa.me/593959019704" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <div class="meta">
+          <a href="tel:+593959019704">+593 959 019 704</a>
+          <span>Tabacundo, Pedro Moncayo, Ecuador</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 MantiSoft · Ing. Ricardo Mantilla</span>
+    <span>
+      <a href="https://www.linkedin.com/in/ricardomantillasoft" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="https://github.com/RicardoMantilla999" target="_blank" rel="noopener">GitHub</a>
+    </span>
+  </div>
+</footer>
+
 </body>
-
 </html>
